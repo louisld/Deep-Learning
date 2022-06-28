@@ -75,7 +75,7 @@ loss_fn = nn.NLLLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 
 # Boucle de l'algorithme
-epochs = 1
+epochs = 100
 train_losses = []
 valid_losses = []
 
