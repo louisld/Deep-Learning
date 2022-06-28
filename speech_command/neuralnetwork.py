@@ -78,3 +78,32 @@ class SoundDeep(nn.Module):
         out = self.Linear(out)
         out = self.log(out)
         return out
+
+class MelSp(nn.Module):
+
+    def __init__(self, kernel_size=30, stride=10, out_channels=30):
+        super(MelSp, self).__init__()
+
+        self.conv = nn.Conv2d(
+            in_channels=1,
+            out_channels=out_channels,
+            kernel_size=kernel_size,
+            stride=stride,
+            padding=9
+        )
+        self.ReLU = nn.ReLU()
+        self.MaxPool = nn.MaxPool2d(kernel_size=3)
+        self.Linear = nn.Linear(60, 35)
+        self.log = nn.LogSoftmax(dim=1)
+        self.out_channels = out_channels
+        self.batch = nn.BatchNorm2d(30)
+
+    def forward(self, x):
+        out = self.conv(x)
+        out = self.ReLU(out)
+        out = self.batch(out)
+        out = self.MaxPool(out)
+        out = out.view(-1, 60)
+        out = self.Linear(out)
+        out = self.log(out)
+        return out
