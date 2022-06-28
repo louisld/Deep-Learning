@@ -16,6 +16,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 fp = gzip.open('../fashion-mnist.pk.gz', 'rb')
 allXtrain, allYtrain, Xtest, Ytest, classlist  = pickle.load(fp) 
 
+# Sélection d'une partie du jeu de données
 Xtrain, Ytrain  = allXtrain[:20000].to(device), allYtrain[:20000].to(device)
 Xvalid, Yvalid  = allXtrain[20000:30000].to(device), allYtrain[20000:30000].to(device)
 
@@ -67,6 +68,7 @@ for t in range(epochs):
     train_losses.append(train_loop(model, loss_fn, optimizer))
 print("Done !")
 
+# Affichage de l'évolution de la fonction de pertes
 plt.plot(train_losses)
 plt.xlabel("epochs")
 plt.ylabel("Pertes")

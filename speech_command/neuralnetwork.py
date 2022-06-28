@@ -3,6 +3,10 @@ from torch import strided
 import torch.nn as nn
 
 class Sound(nn.Module):
+    """
+    Première approche du réseau de neurone
+    avec une seule convolution.
+    """
 
     def __init__(self, kernel_size=100, stride=50, out_channels=30):
         super(Sound, self).__init__()
@@ -29,6 +33,10 @@ class Sound(nn.Module):
         return out
 
 class SoundDeep(nn.Module):
+    """
+    Seconde approche du réseau de neurone avec
+    trois couches de convolution.
+    """
 
     def __init__(self, kernel_size=100, stride=25, out_channels=30):
         super(SoundDeep, self).__init__()
@@ -80,6 +88,10 @@ class SoundDeep(nn.Module):
         return out
 
 class MelSp(nn.Module):
+    """
+    Réseau de neurone avec une seule couche de convolution
+    prennant en entrée une transformée de Mel.
+    """
 
     def __init__(self, kernel_size=30, stride=10, out_channels=30):
         super(MelSp, self).__init__()

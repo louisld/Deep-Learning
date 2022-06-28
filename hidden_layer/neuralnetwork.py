@@ -3,7 +3,8 @@ from torch import nn
 
 class NeuralNetwork(nn.Module):
     """
-    Réseau neuronal pour apprentissage incrémental.
+    Réseau neuronal pour apprentissage incrémental
+    avec une couche cachée.
     """
     
     def __init__(self):

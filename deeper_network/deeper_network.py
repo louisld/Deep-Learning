@@ -86,6 +86,7 @@ for t in range(epochs):
     valid_losses.append(l_v)
 print("Done !")
 
+# Calcul de la matrice de confusion
 pred_test = model(Xtest)
 confmat = ConfusionMatrix(num_classes=10).to(device)
 cf_matrix = confmat(pred_test, Ytest).to("cpu")
@@ -94,6 +95,7 @@ df_cm = pd.DataFrame(cf_matrix/torch.sum(cf_matrix)*10, index=classes, columns=c
 plt.figure(figsize=(12, 7))
 sn.heatmap(df_cm, annot=True)
 
+# Calcul de l'analyse en composante principale
 plt.figure()
 pca = PCA(n_components=2).fit_transform(Xtrain.cpu())
 Ytrain = Ytrain.cpu()
@@ -104,6 +106,8 @@ plt.xlabel("v1")
 plt.ylabel("v2")
 plt.legend()
 
+# Affichage de la fonction de pertes et
+# vérification du sur-ajustement
 plt.figure()
 plt.plot(train_losses, label="Entraînement")
 plt.plot(valid_losses, label="Validation")

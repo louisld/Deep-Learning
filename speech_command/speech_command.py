@@ -23,6 +23,9 @@ with gzip.open('../speech_commands_train.pck.gz', 'rb') as f:
 with gzip.open('../speech_commands_test.pck.gz', 'rb') as f:
     Xtest, Ytest, labels_test = pickle.load(f, encoding='latin1')
 
+# Initialialisation du modèle
+# Il est possible de changer entre les trois classes
+# du module neuralnetwork
 model = MelSp().to(device)
 
 if isinstance(model, MelSp):
@@ -68,6 +71,8 @@ def train_loop(model, loss_fn, optimizer, valid_accuracies):
 
         l += loss.item()
     
+    # Calcul de la précision du réseau
+    # sur les données de test
     logprobs2 = model(Xtest)
     loss2 = loss_fn(logprobs2, Ytest)
     valid_ac = (torch.argmax(logprobs2, dim=1) == Ytest).sum()*100/NValid
@@ -106,6 +111,8 @@ def train_loop_mel(model, loss_fn, optimizer, valid_accuracies):
 
         l += loss.item()
     
+    # Calcul de la précision du réseau
+    # sur les données de test
     logprobs2 = model(Xtest)
     loss2 = loss_fn(logprobs2, Ytest)
     valid_ac = (torch.argmax(logprobs2, dim=1) == Ytest).sum()*100/NValid
